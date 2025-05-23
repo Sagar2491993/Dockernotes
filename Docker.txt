@@ -1,0 +1,398 @@
+Docker (devops hint marathi)
+
+introduction docker  =  
+1.  docker is one of the most popoular tools for containerization.
+2.  doctker containers are lightweight,  a single sever or virctual machine can run sereral container simultaneously.
+3.  docker implements hight level API to provide lightweight container that run processes in isoltion.
+
+what is Docker = 
+1.  docker is open platform for devloper and sysadins to build ship and run distributed application
+2.  main principle of docker are build anywhee ship anywhere, and run anywhere (any platform)
+3.  docker has a multiple components like docker engine, docker image, docker container and docker hub
+
+advantage s of Docker = 
+1. no pre-allocation of RAM
+2.  less cost
+3.  it is light weight
+4.  it can on pytsical H/W / virtual H/w or cloud
+5.  you can reuse the image
+
+Disadvantages of docker
+1.  Docker is a not good solution for application that requires rich GUI
+2.  difficlt to manage large amount of container
+3.  docker does not provide cross- platform compatibity
+4.  no solution for data recovery and backup
+
+Architecture of docker =
+                    [ Docker Host/server]    [Registry]
+client docker build  [ docker daemon         [ public,
+docker run            container,               private
+docker ship             image          ]              ]
+
+
+Docker file = 
+1. docker file is basically used for build the docker image
+2. dDocker file is a textfile and contains list of command (set of instruction)
+
+Docker Image  =
+1. Docker file is a read only file its used to execute code in a docker container
+2. to docker image as a container
+3. docker run hello world
+
+Docker container =
+1.  docker container are the solution of the problem how to get software to run reliably when move fro one 
+     one computing environment to another
+2.  docker container are lightweight and standalone
+3.  docker container runs on docker engine
+
+
+#################################################################################################################################################
+
+Docker install and download and install 
+
+note Aws install connect Docker by use (windows - putty)
+                                       (lunix - SSH)
+
+docker download windos64 
+   > Docker Destop installer.exe install in local system
+   > open cmd > check docker download (docker (enter))
+
+
+
+🐳 Common Docker Commands (Same on Linux and Windows)
+    | Task                                     | Command                                    |
+| ---------------------------------------- | ------------------------------------------ |
+| Check Docker version                     | `docker --version`                         |
+| Start Docker service (Linux only)        | `sudo systemctl start docker`              |
+| Pull an image                            | `docker pull <image>`                      |
+| Run a container                          | `docker run <options> <image>`             |
+| List running containers                  | `docker ps`                                |
+| List all containers (including stopped)  | `docker ps -a`                             |
+| Stop a container                         | `docker stop <container_id>`               |
+| Remove a container                       | `docker rm <container_id>`                 |
+| Remove an image                          | `docker rmi <image_id>`                    |
+| View images                              | `docker images`                            |
+| Build image from Dockerfile              | `docker build -t <tag> .`                  |
+| Execute a command in a running container | `docker exec -it <container_id> <command>` |
+| Open a shell inside a container          | `docker exec -it <container_id> /bin/bash` |
+
+############################################################################################################
+Docker hub create account
+email - abhangsagar366@gmail.com
+username - abhang
+password = Sagar@366
+
+###########################################################################################################
+
+# Microsoft store download ubuntu and install
+# requirement wsl2  = powershwll in wsl --install
+# check wsl work = powershell in wsl -l -v
+
+# if wsl 1 version show thats time updatye version upload wsl2 
+
+###########################################################################################################
+# small project hello-word
+
+1. dockerhub search hello-word = wsl in  docker pull hello-world
+2. how many in docker images present check = docker images  (otherwise local system in docker desktop in show image with image id)
+
+3, create docker container = docker run hello-world  (docker run image name)
+                                         OR
+                              docker run -it hello-world  (docker run image name it interative terminal , its input and output) # show the image id inter in container
+                              # the inter in  docker container special environment 
+
+4. ls (list of file in container)
+5. if add in new code , file  = so local syatem in path change ,   mkdir path-name
+    # check directry addd  = ls
+    # env (show the enviroment)
+
+6. exit (out the of container) 
+
+# check the how many run container
+7. docker ps -a
+
+# docker runner container check 
+8. docker ps
+
+# docker container again run 
+9. docker start (container name OR container ID)
+   # docker ps (check run container)
+
+# container stop
+10. docker stop (container name)
+
+####################################################################################################################
+# Port blinding
+docker run -p 5000:5000 insurance-ml
+                        # insurance (image names)
+              # host port = container port
+
+## docker run -d --rm --name nc -p 8080:80  ngix
+## docker run -d -p 8787:80 --name vigilant_bassi nginx
+
+
+     -d runs the container in detached mode.
+
+     -p 8787:80 maps host port 8787 to container port 80.
+
+     --name vigilant_bassi gives the container a specific name.
+      nginx image name
+
+###############   docker run -d -p 787:80 --name nginx_787 nginx
+                                   # 787 = host port
+                                   # 80 = container port  # could know port command (docker inspect nginx ) # check Exposed/Ports
+                                   # nginx_787 = take container name
+                                   # nginx = real image name
+  ##  docker run -d -p HOST_PORT:CONTAINER_PORT nginx
+                                     # docker stop conatainer > again docker start container > will host port work
+                    
+
+## live docker work log
+
+1. docker logs image_name
+2. docker loges -f image_name
+
+
+# image attachement
+  docker attach image_name
+
+# docker other information regarding to image
+docker inspect  container_name
+3. verfy = 
+
+###################################################################################################################
+# local file add in external container
+1. cd file path  ex. cd test
+2. docker cp file name
+3. docker exec nienx ls/
+
+# take any fine in container by local system
+1.ls
+2. docker cp container_name:testfile(which given file name)
+
+
+
+###################################################################################################################
+
+# Docker Compose
+
+# Docker compose is a tool and running-container applications.
+
+# create .Yaml file compose multiple container run.
+
+# abc.yaml file example
+version "3,8"
+ services
+   mongo:
+    image mongo
+    ports:
+       -27017:27017
+       # host port : container port
+    environment:
+      MONGO_INTDB_ROOT_USERNAME: admin
+      MONO_INTDB_ROOT_PASSWORD: qwerty
+
+# docker compose-f filename.yaml up-d
+                      # up creat container and start detact mode
+# docker compose-f filename.yaml down
+                     # permanenty delete container by use down through . yaml file
+
+# run .yaml file 1st call directy path fix ,yaml file
+example =  cd Desktop/test_project
+
+1. docker compose -f abc.yaml up -d
+
+2. docker ps -a
+
+#########################################################################################
+
+## create self image
+# Dockerizing our App  (Docker file)
+
+# Docker file
+1. FROM      = base image (python 3.11)
+2. WORKDIR   = container path 
+3. COPY..     = host through file, image load
+4. RUN       = image and container intraction run
+5. CMD       = container run only one command
+6. EXPOSE    = when image expose
+7. ENV       = environment declare
+
+# example create file dockerfile in application in folder
+
+# Dockerfile
+# Use an official lightweight Python image
+FROM python:3.10-slim
+
+# Set working directory in the container
+WORKDIR /app
+
+# Copy dependency file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the app
+COPY . .   # project all file copy in container
+
+# container default por
+ENV t 300
+
+# # Expose port if you're running a server (optional, e.g., with Flask)
+EXPOSE 5000
+
+# Default command to run your app
+CMD ["python", "app.py"]
+
+
+###########
+# DOCKER FILE CONVERT IN IMAGE
+  docker build -t sagar:01 .
+   # . = location at dockerfile (. means present location)
+   # -t = tagging
+   # sagar:01 = image name, 01 version
+
+### 
+so docker image run 
+     docker run -d -rm --name myapp -p 3000:3000 sagar:01
+                 # myapp = container name
+                 # 3000:3000
+                   host port : local default port
+                 # sagar:01 = image name with version
+
+### 
+docker run -d --rm --env PORT= 1221 --name myapp -p 8080:1221 sagar:01
+      # --env PORT=1221 = its custom container binding port provided
+
+##############
+
+
+# dockerignore file in (ignore file name not show in container)
+
+#  Build and Run Docker Container
+# Build the Docker image
+docker build -t insurance-ml .
+           # insurance-ml its image any write image name
+
+# Run the Docker container
+docker run -p 5000:5000 insurance-ml
+              # host port = container port
+
+##########################################################################################
+# Publishing Images (DOCKER REPOSITORY)
+# sing in dockerhub
+1. depositories > create repository 
+   (repository name, short description, public, private create) # docker command copy % use image name
+
+# Build the Docker image
+docker build -t insurance-ml .
+
+clear
+
+docker logout
+docker login  ( docker login -u <username>) > take url >open url > confirmation code paste > completlity login
+
+
+docker push docker image_name  # check in dockehub push image
+
+###########################################################################################
+# Docker Volume
+# volumes are persistent data stores for container.
+
+-v host path(local destop folder): container path
+
+# valume attachment in running conatainer
+   docker run -it -v /user/sagar/Desktop/data:test/data ubuntu 
+                                                        # ubuntu = image_name
+
+ls
+> test
+cd test
+ls
+> data
+cd data
+l s
+ 
+# abc.yaml file example
+version "3,8"
+ services
+   mongo:
+    image mongo
+    ports:
+       -27017:27017
+       # host port : container port
+    environment:
+      MONGO_INTDB_ROOT_USERNAME: admin
+      MONO_INTDB_ROOT_PASSWORD: qwerty
+    volume:
+       - host_dir:cont_dir
+
+
+# docker volume ls  (# all volumes show)
+# docker volume create VOL_NAME (# custom valume create, without path thats time show c\program\data\docker\volumes ) # not attached running container
+# docker volume rm vol_name (# delete valumes)
+
+# unuse volume
+   docker volume prune
+
+
+#####
+docker run -d --rm -v myapp:/app/ --env PORT= 1221 --name myapp -p 8080:1221 sagar:01
+
+        # -v myapp:/app/ = -v (valume)
+                           myapp (volume name)
+                           :/app/ app directory store data
+
+
+######################################################################################
+# DOCKER NETWORK
+ # docker network ls = most 3 network 
+    (driver = bridge, host, null)
+
+# docker network create mynetwork (custom network = bridge driver)
+# ls
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
