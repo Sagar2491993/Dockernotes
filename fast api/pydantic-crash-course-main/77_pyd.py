@@ -1,0 +1,38 @@
+from pydantic import BaseModel
+from typing import List, Dict, Optional
+
+class Patient(BaseModel):  # pydantic input show
+    # data typde validation 
+    # optional data means defount data (user does not intert data)
+    
+    name: str
+    age: int
+    weight: float
+    married: bool = False # defolt value
+    allergies: Optional[List[str]] = None # patient_info not write data
+    contact_details: Dict[str, str]
+
+
+def insert_patient_data(patient: Patient):  # patient = varible in class ,  Patient = class name
+    print(patient.name)  # varible in dict key call
+    print(patient.age)
+    print(patient.weight)
+    print(patient.married)
+    print(patient.allergies)
+    print(patient.contact_details)
+    print("inserted")
+
+def update_patient_data(patient: Patient):  # patient = varible in class ,  Patient = class name
+    print(patient.name)  # class in data call
+    print(patient.age)
+    print("updated")
+
+
+patient_info = {"name": "nitish", "age":32, "weight":66.66 ,#"married": True,
+                #"allergies": ["polen", "dust"],
+                "contact_details": {"email":"abc@gmail.com", "phone": "1234567898"} }
+
+patient1 = Patient(**patient_info) # **patient_info = distionary use that reasion **
+
+insert_patient_data(patient1)
+update_patient_data(patient1)

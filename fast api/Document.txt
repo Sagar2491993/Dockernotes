@@ -1,0 +1,30 @@
+
+#  Navigate to your project directory
+cd path/to/your/project
+
+
+# Create the virtual environment
+python -m venv venv
+
+
+# its venv activate
+venv\Scripts\activate
+
+# Deactivate when done
+deactivate venv
+
+
+
+# install lablery in group
+pip install -r requirements.txt
+ - fastapi # api server
+ - unicorn # server
+ - pydantic 
+
+
+# main file run fastapi
+uvicorn main:app --reload
+                # --reload # after again edit, update code will change automatic in server not again run file
+                # main = its file name
+                # app = object name from fastapi
+ # get = when only data read
